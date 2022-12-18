@@ -1,7 +1,7 @@
 package me.whiteship.inflearnthejavatest;
 
 public class Study {
-    private StudyStatus status = StudyStatus.DRAFT;
+    private StudyStatus status;
 
     private int limit;
 
