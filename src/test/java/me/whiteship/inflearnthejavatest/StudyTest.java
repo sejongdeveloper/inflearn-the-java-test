@@ -9,7 +9,9 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.function.Supplier;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
@@ -17,9 +19,17 @@ class StudyTest {
     @Test
     @DisplayName("스터디 만들기 ╯°□°）╯")
     void create_new_study() {
-        Study study = new Study();
+        Study study = new Study(-10);
         assertNotNull(study);
-        System.out.println("create");
+        assertEquals(StudyStatus.DRAFT, study.getStatus(), "스터디를 처음 만들면 상태값이 DRAFT 상태다.");
+        assertEquals(StudyStatus.DRAFT, study.getStatus(), () -> "스터디를 처음 만들면 상태값이 DRAFT 상태다.");
+        assertEquals(StudyStatus.DRAFT, study.getStatus(), new Supplier<String>() {
+            @Override
+            public String get() {
+                return "스터디를 처음 만들면 상태값이 DRAFT 상태다.";
+            }
+        });
+        assertTrue(study.getLimit() > 0, "스터디 최대 참석 가능 인원은 0보다 커야 한다.");
     }
 
     @Test
