@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.util.function.Supplier;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -20,16 +21,8 @@ class StudyTest {
     @Test
     @DisplayName("스터디 만들기 ╯°□°）╯")
     void create_new_study() {
-//        assertTimeout(Duration.ofMillis(100), () -> {
-//            new Study(10);
-//            Thread.sleep(300);
-//        });
-
-        assertTimeoutPreemptively(Duration.ofMillis(100), () -> {
-            new Study(10);
-            Thread.sleep(300);
-        });
-        //TODO ThreadLocal
+        Study actual = new Study(10);
+        assertThat(actual.getLimit()).isGreaterThan(0);
     }
 
     @Test
