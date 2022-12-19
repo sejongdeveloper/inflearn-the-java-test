@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.AggregateWith;
@@ -26,6 +27,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(FindSlowTestExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
     int value = 1;
@@ -43,7 +45,8 @@ class StudyTest {
     @SlowTest
     @DisplayName("스터디 만들기 slow")
     @Disabled
-    void create_new_study_again() {
+    void create_new_study_again() throws InterruptedException {
+        Thread.sleep(1_005L);
         System.out.println(this);
         System.out.println("create1 " + value++);
     }
