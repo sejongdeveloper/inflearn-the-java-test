@@ -24,10 +24,18 @@ class StudyTest {
     @DisplayName("스터디 만들기 ╯°□°）╯")
     void create_new_study() {
         String test_env = System.getenv("TEST_ENV");
-        assumeTrue("LOCAL".equalsIgnoreCase(test_env));
 
-        Study actual = new Study(10);
-        assertThat(actual.getLimit()).isGreaterThan(0);
+        assumingThat("LOCAL".equalsIgnoreCase(test_env), () -> {
+            System.out.println("local");
+            Study actual = new Study(100);
+            assertThat(actual.getLimit()).isGreaterThan(0);
+        });
+
+        assumingThat("keesun".equalsIgnoreCase(test_env), () -> {
+            System.out.println("keesun");
+            Study actual = new Study(10);
+            assertThat(actual.getLimit()).isGreaterThan(0);
+        });
     }
 
     @Test
