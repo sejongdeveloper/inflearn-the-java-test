@@ -8,6 +8,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnJre;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.EnabledOnJre;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.JRE;
+import org.junit.jupiter.api.condition.OS;
 
 import java.time.Duration;
 import java.util.function.Supplier;
@@ -22,6 +29,9 @@ class StudyTest {
 
     @Test
     @DisplayName("스터디 만들기 ╯°□°）╯")
+//    @EnabledOnOs({OS.WINDOWS, OS.LINUX})
+//    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_11})
+    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "LOCAL")
     void create_new_study() {
         String test_env = System.getenv("TEST_ENV");
 
@@ -40,6 +50,9 @@ class StudyTest {
 
     @Test
     @DisplayName("스터디 만들기 \uD83D\uDE31")
+//    @DisabledOnOs(OS.WINDOWS)
+//    @DisabledOnJre(JRE.OTHER)
+    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "keesun")
     void create_new_study_again() {
         System.out.println("create1");
     }
