@@ -48,6 +48,10 @@ public class Study {
         return name;
     }
 
+    public Member getOwner() {
+        return owner;
+    }
+
     public void setOwner(Member owner) {
         this.owner = owner;
     }
