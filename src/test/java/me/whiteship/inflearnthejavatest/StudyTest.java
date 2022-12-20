@@ -40,7 +40,7 @@ class StudyTest {
         System.out.println(this);
         System.out.println(value++);
         Study actual = new Study(1);
-        assertThat(actual.getLimit()).isGreaterThan(0);
+        assertThat(actual.getLimitCount()).isGreaterThan(0);
     }
 
     @Order(1)
