@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 public class Study {
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     private Member owner;
