@@ -1,11 +1,28 @@
-package me.whiteship.inflearnthejavatest;
+package me.whiteship.inflearnthejavatest.domain;
 
+import me.whiteship.inflearnthejavatest.study.StudyStatus;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Study {
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @ManyToOne
+    private Member owner;
     private StudyStatus status;
 
     private int limit;
 
     private String name;
+
+    public Study() {
+    }
 
     public Study(int limit) {
         if (limit < 0) {
@@ -29,6 +46,10 @@ public class Study {
 
     public String getName() {
         return name;
+    }
+
+    public void setOwner(Member owner) {
+        this.owner = owner;
     }
 
     @Override
