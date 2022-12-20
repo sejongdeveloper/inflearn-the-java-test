@@ -41,12 +41,7 @@ class StudyServiceTest {
         assertEquals(member, study.getOwner());
 
         verify(memberService, times(1)).notify(study);
-        verify(memberService, times(1)).notify(member);
-        verify(memberService, never()).validate(any());
-
-        InOrder inOrder = inOrder(memberService);
-        inOrder.verify(memberService).notify(study);
-        inOrder.verify(memberService).notify(member);
+        verifyNoMoreInteractions(memberService);
     }
 
 }
