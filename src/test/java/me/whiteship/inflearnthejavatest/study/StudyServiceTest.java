@@ -3,11 +3,14 @@ package me.whiteship.inflearnthejavatest.study;
 import me.whiteship.inflearnthejavatest.domain.Member;
 import me.whiteship.inflearnthejavatest.domain.Study;
 import me.whiteship.inflearnthejavatest.member.MemberService;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.Optional;
 
@@ -23,6 +26,20 @@ class StudyServiceTest {
     MemberService memberService;
     @Mock
     StudyRepository studyRepository;
+
+    static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer()
+            .withDatabaseName("studytest");
+
+    @BeforeAll
+    static void beforeAll() {
+        postgreSQLContainer.start();
+        System.out.println(postgreSQLContainer.getJdbcUrl());
+    }
+
+    @AfterAll
+    static void afterAll() {
+        postgreSQLContainer.stop();
+    }
 
     @Test
     void createNewStudy() {
