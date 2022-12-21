@@ -3,42 +3,43 @@ package me.whiteship.inflearnthejavatest.study;
 import me.whiteship.inflearnthejavatest.domain.Member;
 import me.whiteship.inflearnthejavatest.domain.Study;
 import me.whiteship.inflearnthejavatest.member.MemberService;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
 
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
+@Testcontainers
 class StudyServiceTest {
     @Mock
     MemberService memberService;
-    @Mock
+    @Autowired
     StudyRepository studyRepository;
 
+    @Container
     static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer()
             .withDatabaseName("studytest");
 
-    @BeforeAll
-    static void beforeAll() {
-        postgreSQLContainer.start();
-        System.out.println(postgreSQLContainer.getJdbcUrl());
-    }
 
-    @AfterAll
-    static void afterAll() {
-        postgreSQLContainer.stop();
+    @BeforeEach
+    void beforeEach() {
+        studyRepository.deleteAll();
     }
 
     @Test
